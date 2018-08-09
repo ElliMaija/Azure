@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace CrudWebApi.Filters
 {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method,
+ Inherited = true, AllowMultiple = false)]
     public class MyTimerFilterAttribute : Attribute, IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(

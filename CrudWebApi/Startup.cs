@@ -8,6 +8,7 @@ using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -50,6 +51,10 @@ namespace CrudWebApi
                 c.IncludeXmlComments(xmlPath);
                 xmlPath = Path.Combine(AppContext.BaseDirectory, "CrudWebApi.xml");
                 c.IncludeXmlComments(xmlPath);
+                services.AddDbContext<MySqlContext>(options =>
+                options.UseSqlServer(Configuration
+                .GetConnectionString("CustomerDb")
+                ));
             });
 
         }
