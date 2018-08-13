@@ -7,11 +7,13 @@ using DAL;
 using Entities;
 using Microsoft.AspNetCore.JsonPatch;
 using CrudWebApi.Filters;
+using Microsoft.AspNetCore.Cors;
 
 namespace CrudWebApi.Controllers
 {
     [TypeFilter(typeof(MyExceptionFilterAttribute))]
     [Route("api/[controller]")]
+    [EnableCors("MyPolicy")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
@@ -68,6 +70,7 @@ namespace CrudWebApi.Controllers
         public ActionResult<Customer> Post([FromBody]Customer value)
         {            
             if (value == null) return BadRequest();
+            if (!ModelState.IsValid) return this.BadRequest(ModelState);
             value.Id = 0;
             dbc.Customers.Add(value);
             dbc.SaveChanges();

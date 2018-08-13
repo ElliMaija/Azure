@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CrudWebApi.Filters;
+using CrudWebApi.Formatters;
 using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,11 +30,24 @@ namespace CrudWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MySqlContext>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                });
+            }
+            );
+            //services.AddDbContext<MySqlContext>();
             services.AddMvc(options =>
             {
                 //options.Filters.Add(typeof(MyTimerFilterAttribute));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                options.OutputFormatters.Add(new MyCsvOutputFormatter());
+                options.FormatterMappings.SetMediaTypeMappingForFormat("csv", "text/csv");
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            .AddXmlSerializerFormatters();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -50,6 +65,11 @@ namespace CrudWebApi
                 c.IncludeXmlComments(xmlPath);
                 xmlPath = Path.Combine(AppContext.BaseDirectory, "CrudWebApi.xml");
                 c.IncludeXmlComments(xmlPath);
+                services.AddDbContext<MySqlContext>(options =>
+                options.UseSqlServer(Configuration
+                .GetConnectionString("CustomerDb")
+                ));
+
             });
 
         }
