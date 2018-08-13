@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "Dal\DAL.csproj", "{5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudWebApi", "CrudWebApi\CrudWebApi.csproj", "{B70025AE-240C-4979-877C-E514717DF213}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{36DF65D6-DEC1-428C-A622-1128C1DAC04C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B70025AE-240C-4979-877C-E514717DF213}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B70025AE-240C-4979-877C-E514717DF213}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B70025AE-240C-4979-877C-E514717DF213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36DF65D6-DEC1-428C-A622-1128C1DAC04C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DF65D6-DEC1-428C-A622-1128C1DAC04C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DF65D6-DEC1-428C-A622-1128C1DAC04C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DF65D6-DEC1-428C-A622-1128C1DAC04C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
